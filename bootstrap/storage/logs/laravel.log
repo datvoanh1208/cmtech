@@ -1,0 +1,14 @@
+[2017-06-30 17:47:09] production.ERROR: exception 'RuntimeException' with message 'Directory name must not be empty.' in C:\xampp\htdocs\cmtech\vendor\symfony\finder\Iterator\RecursiveDirectoryIterator.php:54
+Stack trace:
+#0 C:\xampp\htdocs\cmtech\vendor\symfony\finder\Iterator\RecursiveDirectoryIterator.php(54): RecursiveDirectoryIterator->__construct('', 4096)
+#1 C:\xampp\htdocs\cmtech\vendor\symfony\finder\Finder.php(669): Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator->__construct('', 4096, false)
+#2 C:\xampp\htdocs\cmtech\vendor\symfony\finder\Finder.php(571): Symfony\Component\Finder\Finder->searchInDirectory('')
+#3 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(87): Symfony\Component\Finder\Finder->getIterator()
+#4 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(64): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#5 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#6 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#7 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#8 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#9 C:\xampp\htdocs\cmtech\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#10 C:\xampp\htdocs\cmtech\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#11 {main}  
