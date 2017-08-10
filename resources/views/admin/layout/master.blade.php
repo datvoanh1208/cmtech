@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="CMTech Demo">
     <meta name="author" content="">
+    <link rel="SHORTCUT ICON" href="{{asset('source/home/assets/dest/images/logomini.ico')}}">
     <title>Admin - CMTech</title>
 
     <base href="{{asset('')}}">

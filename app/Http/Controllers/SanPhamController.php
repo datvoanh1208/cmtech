@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
+use App\product;
 use App\type_product;
 use App\Comment;
+
 
 class SanPhamController extends Controller
 {
@@ -27,12 +28,11 @@ class SanPhamController extends Controller
     {
         $this->validate($req,[
             'LoaiSP' => 'required',
-            'TenSP' => 'required|unique:product,name|min:3',
+            'TenSP' => 'required|min:3',
             'MoTa' => 'required'
             ],[
             'LoaiSP.required' => "Vui lòng chọn loại sản phẩm",
             'TenSP.required' => "Vui lòng nhập tên sản phẩm",
-            'TenSP.unique'=> "Tên sản phẩm đã tồn tại",
             'TenSP.min' => "Tên sản phẩm không được ngắn hơn 3 kí tự",
             'MoTa.required' => "Vui lòng nhập phần mô tả"
             ]);

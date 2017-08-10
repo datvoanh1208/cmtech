@@ -38,5 +38,8 @@ CKEDITOR.editorConfig = function( config )
         config.filebrowserImageUploadUrl = 'http://localhost/fckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
 
         config.filebrowserFlashUploadUrl = 'http://localhost/fckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
+		
+		config.extraPlugins = 'textselection';
+
 
 };  

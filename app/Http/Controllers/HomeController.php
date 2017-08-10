@@ -13,7 +13,7 @@ use Session;
 use App\Cart;
 use App\bill_detail;
 use App\bills;
-use App\Customer;
+use App\customer;
 use DB;
 use App\Post;
 use Mail;
@@ -25,7 +25,7 @@ class HomeController extends Controller
    
     //
     public function getIndex(Request $req)
-    {
+    { 
        
         $slide = slide::all();
         $new_product = product::where('new',1)->paginate(4);
@@ -59,7 +59,6 @@ class HomeController extends Controller
         
     }
 
-    
 
     public function postResetPassword(Request $req, $token, $email)
     {
@@ -208,12 +207,11 @@ class HomeController extends Controller
         {
             Session::forget('cart');
         }
-        return redirect()->back();
+        return redirect(route('trangchu'));
     }
 
     public function getCheckout()
     {
-        
         return view('home.page.dathang');
     }
 
@@ -221,6 +219,17 @@ class HomeController extends Controller
     {
         // đúng hông zay :3, chạy thử coi
         $cart = Session::get('cart');
+
+        $emailnl = $req->email;
+        $totalnl = $cart->totalPrice;
+        $note = $req->notes;
+        $idofbill = str_random(5);
+        
+
+        // if($req->submit=='baokim'){
+        // // $str = str_replace( '@', '%40', $emailnl );
+        // return redirect("https://www.baokim.vn/payment/product/version11?business={$emailnl}&id=&order_description=&product_name=noname&product_price={$totalnl}&product_quantity=1&total_amount={$totalnl}&url_cancel=&url_detail=&url_success="); 
+        // }
         
         $customer = new Customer;
         $customer->name = $req->name;
@@ -249,25 +258,33 @@ class HomeController extends Controller
             $billdetail->name_product = $value['item']['name'];
             $billdetail->quantity = $value['qty'];
             $billdetail->unit_price = ($value['price']/$value['qty']);
+
+            $name = $value['item']['name'];
+            $sl = $value['qty'];
+            $unit_price = ($value['price']/$value['qty']);
+
+
+            if($req->submit=='nganluong'){
+            // 
+            return redirect("https://www.nganluong.vn/button_payment.php?receiver={$emailnl}&product_name={$name}&price={$totalnl}&return_url=&comments={$note}");
+            }
+
+
+
+            if($req->submit=='baokim'){
+            // $str = str_replace( '@', '%40', $emailnl );
+            return redirect("https://www.baokim.vn/payment/product/version11?business={$emailnl}&id=$idofbill&order_description={$note}&product_name={$name}&product_price={$unit_price}&product_quantity={$sl}&total_amount={$totalnl}&url_cancel=&url_detail=&url_success="); 
+            
+            }
+
             $billdetail->save();
         }
 
-        $emailnl = $req->email;
-        $totalnl = $cart->totalPrice;
         
-        if($req->submit=='nganluong'){
-        return redirect("https://www.nganluong.vn/button_payment.php?receiver={{$emailnl}}&product_name=(Mã đơn đặt hàng)&price={{$totalnl}}&return_url={{route('trangchu')}}&comments=no");
-        }
-
-        
-        if($req->submit=='baokim'){
-        return redirect("https://www.baokim.vn/payment/product/version11?business={{$emailnl}}&id=&order_description=&product_name=&product_price=&product_quantity=1&total_amount={{$totalnl}}&url_cancel=&url_detail=&url_success=");
-            
-        }
 
 
         Session::forget('cart');
-        return redirect('trangchu')->with('thongbao','Đặt hàng thành công!');
+        return redirect(route('trangchu'))->with('thongbao','Đặt hàng thành công!');
         
     }
 
@@ -282,7 +299,7 @@ class HomeController extends Controller
     public function getLoc()
     {
         
-        $product = DB::table('product')->where('unit_price', '<', 5000000)->get();
+        $product = DB::table('product')->where('unit_price', '<', 5000000)->paginate(4);
 
         return view('home.page.loc', compact('product'));
 
@@ -292,7 +309,7 @@ class HomeController extends Controller
     {
         
         $product = DB::table('product')
-                    ->whereBetween('unit_price', [5000000, 10000000])->get();
+                    ->whereBetween('unit_price', [5000000, 10000000])->paginate(4);
 
         return view('home.page.loc', compact('product'));
 
@@ -302,7 +319,7 @@ class HomeController extends Controller
     {
         
         $product = DB::table('product')
-                    ->whereBetween('unit_price', [10000000, 15000000])->get();
+                    ->whereBetween('unit_price', [10000000, 15000000])->paginate(4);
 
         return view('home.page.loc', compact('product'));
 
@@ -312,7 +329,7 @@ class HomeController extends Controller
     {
         
         $product = DB::table('product')
-                    ->whereBetween('unit_price', [15000000, 20000000])->get();
+                    ->whereBetween('unit_price', [15000000, 20000000])->paginate(4);
 
         return view('home.page.loc', compact('product'));
 
@@ -322,7 +339,7 @@ class HomeController extends Controller
     {
         
         $product = DB::table('product')
-                    ->whereBetween('unit_price', [20000000, 25000000])->get();
+                    ->whereBetween('unit_price', [20000000, 25000000])->paginate(4);
 
         return view('home.page.loc', compact('product'));
 
@@ -331,6 +348,24 @@ class HomeController extends Controller
     public function getLienhe()
     {
         return view('home.page.lienhe');
+    }
+
+    public function postLienhe(Request $req)
+    {
+        $this->validate($req,[
+            'email'=>'email'
+            ],[
+            'email' => 'Vui lòng nhập đúng định dạng!'
+            ]);
+        $name = $req->name;
+        $email = $req->email;
+        $project = $req->project;
+        $message = $req->message;
+
+        Mail::send('home.mailgopy', array('name'=>$name,'email'=>$email,'project'=>$project,'message'=>$message), function($message) {
+            $message->to('sglycafe@gmail.com','Hi')->subject('Khách hàng có ý kiến đóng góp!');
+         });
+        return "Đã gửi mail thành công!";
     }
 
     public function getGioithieu()
@@ -352,6 +387,7 @@ class HomeController extends Controller
             'fullname' =>'required',
             'password'=>'required|min:6|max:12',
             're_password'=>'required|same:password',
+            'phone' => 'required|alpha_num|min:10|max:11'
             ],
             [
             'email.required' => 'Vui lòng nhập email',
@@ -361,7 +397,11 @@ class HomeController extends Controller
             'password.required' => 'Vui lòng nhập password',
             'password.min'=>'Password quá ngắn hơn 6 kí tự',
             'password.max'=>'Password dài hơn 12 kí tự',
-            're_password'=>'Password không giống nhau'
+            're_password'=>'Password không giống nhau',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.alpha_num'=> 'SĐT phải là số',
+            'phone.min'=> 'SĐT không được ít hơn 10 kí tự',
+            'phone.max'=> 'SĐT không được dài hơn 11 kí tự',
             ]);
         $user = new User();
         $user->email = $req->email;
@@ -392,8 +432,8 @@ class HomeController extends Controller
             [
             'email.required'=>'Chưa nhập email',
             'password.required'=>'Vui lòng nhập password',
-            'password.min'=>'Email ít hơn 6 kí tự',
-            'password.max'=>'Email dài hơn 12 kí tự',
+            'password.min'=>'Password ít hơn 6 kí tự',
+            'password.max'=>'Password dài hơn 12 kí tự',
             // 'g-recaptcha-response.required' => 'Vui lòng check vào ô',
             // 'g-recaptcha-response.recaptcha' => 'Vui lòng check lại'
             
@@ -413,6 +453,7 @@ class HomeController extends Controller
         $credentials = array('email'=>$req->email,'password'=>$req->password);
         
 
+        
         if(Auth::attempt($credentials,$remember))
         {
             //nó đây
@@ -434,12 +475,10 @@ class HomeController extends Controller
     public function postThongtincanhan(Request $req, $id)
     {
         $this->validate($req,[
-            'name'=>'required|unique:users,full_name|min:3|max:25',
+            'name'=>'required|min:3|max:25',
             'phone'=>'required|min:9|max:11|alpha_num',
             'address'=>'required|min:3|max:40',
-            
             ],[
-            
             'name.required' => 'Vui lòng nhập tên đầy đủ',
             'name.min'=>'Tên quá ngắn hơn 3 kí tự',
             'name.max'=>'Tên dài hơn 25 kí tự',
@@ -449,14 +488,13 @@ class HomeController extends Controller
             'phone.required' => 'Vui lòng nhập số điện thoại',
             'phone.min'=>'SĐT quá ngắn hơn 9 kí tự',
             'phone.max'=>'SĐT không được dài hơn 11 kí tự',
-            
             ]);
-        $user = User::find($id);
+        $user = User::find($id);           
         $user->full_name = $req->name;
         
+
         if($req->changePassword == 'on'){
             $this->validate($req,[
-            
             'password'=>'required|min:6|max:20',
             're_password'=>'required|same:password'
             ],[
@@ -466,16 +504,67 @@ class HomeController extends Controller
             'password.max'=>'Password dài hơn 20 kí tự',
             're_password'=>'Password không giống nhau'
             ]);
-            $user->password = bcrypt($req->password);
+            $user->password = Hash::make($req->password);
         }
         
         
         $user->phone = $req->phone;
         $user->address = $req->address;
        
-        $user->save();
+        // $checkpass = Hash::make($req->old_password);
+        // echo $checkpass;
+        // echo "<br>";
+        // echo Auth::user()->password;
+        // die();
 
-        return redirect()->back()->with('thongbao', 'Bạn đã sửa user thành công!');
+        // $user->save();
+        // return redirect()->back()->with('thongbao', 'Bạn đã sửa user thành công!');
+
+        $hashedPassword = Auth::user()->password;
+
+        if (Hash::check($req->old_password, $hashedPassword)) {
+            // The passwords match...
+            $user->save();
+            return redirect()->back()->with('thongbao', 'Bạn đã sửa user thành công!');
+        }
+        else{
+            return redirect()->back()->with('thongbao', 'Sửa user không thành công!');
+        }
+
+        // if(Auth::user()->password == $checkpass)
+        // {
+        //     return 1;
+        //     die();
+        //     $user->save();
+        //     return redirect()->back()->with('thongbao', 'Bạn đã sửa user thành công!');
+        // }
+        // else{
+        //     return 2;
+        //     die();
+        //     return redirect()->back()->with('thongbao', 'Sửa user không thành công!');
+        // }
+
+
+        // $credentials = array('password'=>$req->old_password);
+        // if(Auth::attempt($credentials))
+        // {
+        //     echo 1;
+        //     die();
+        //     $user->save();
+        //     return redirect()->back()->with('thongbao', 'Bạn đã sửa user thành công!');
+        // }
+        // else{
+        //     echo 2;
+        //     die();
+        //     return redirect()->back()->with('thongbao', 'Sửa user không thành công!');
+        // }
+
+
+
+
+
+        // return redirect()->back()->with('thongbao', 'Bạn đã sửa user thành công!');
+        
     }
     public function getLogout()
     {

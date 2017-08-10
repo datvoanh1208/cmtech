@@ -43,7 +43,8 @@
                                 </div>
                                 
                                 @endforeach
-
+                                <p>&nbsp</p>
+                                <div class="row">{{$product->links()}}</div>
                                 
                                 
                             </div>

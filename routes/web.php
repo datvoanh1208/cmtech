@@ -71,6 +71,11 @@ Route::get('lien-he',[
 	'uses' => 'HomeController@getLienhe'
 ]);
 
+Route::post('lien-he',[
+	'as' => 'contact',
+	'uses' => 'HomeController@postLienhe'
+]);
+
 Route::get('gioi-thieu',[
 	'as' => 'about',
 	'uses' => 'HomeController@getGioithieu'
@@ -106,15 +111,14 @@ Route::post('thongtincanhan/{id}','HomeController@postThongtincanhan');
 
 
 
-Route::get('admin/','UserController@getDangnhapAdmin');
-Route::post('admin/','UserController@postDangnhapAdmin');
+Route::get('admin','UserController@getDangnhapAdmin');
+Route::post('admin','UserController@postDangnhapAdmin');
 
 Route::get('admin/logout','UserController@getLogout');
 
 
-
-
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
+
 	Route::group(['prefix'=>'loaisanpham'],function(){
 		Route::get('danhsach','LoaiSPController@getDanhSach');
 

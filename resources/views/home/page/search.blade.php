@@ -20,7 +20,7 @@
                                     <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                     @endif
                                         <div class="single-item-header">
-                                            <a href="{{route('chitietsanpham',$sp->id)}}"><img src="{{asset('source/home/image/product/'.$sp->image)}}" alt="" height="250" width="auto"></a>
+                                            <a href="{{route('chitietsanpham',$sp->id)}}"><img src="{{asset('source/home/image/product/'.$sp->image)}}" alt="" height="" width="250"></a>
                                         </div>
                                         <div class="single-item-body">
                                             <p class="single-item-title">{{$sp->name}}</p>

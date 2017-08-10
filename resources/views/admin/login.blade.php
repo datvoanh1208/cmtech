@@ -30,7 +30,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title" style="text-align: center">Đăng nhập Admin</h3>
                     </div>
                     <div class="panel-body">
                     @if(count($errors) > 0)
@@ -45,7 +45,7 @@
                             {{Session('thongbao')}}
                         </div> 
                     @endif
-                        <form role="form" action="{{asset('admin/')}}" method="POST">
+                        <form role="form" action="{{asset('admin')}}" method="POST">
                             <fieldset>
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group">

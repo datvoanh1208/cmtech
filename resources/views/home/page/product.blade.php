@@ -43,7 +43,7 @@
 							<div class="space20">&nbsp;</div>
 
 							<div class="single-item-desc">
-								<p>{{$sanpham->description}}</p>
+								<p></p>
 							</div>
 							<div class="space20">&nbsp;</div>
 							
@@ -88,7 +88,12 @@
 						</ul>
 
 						<div class="panel" id="tab-description">
-							<p>{{$sanpham->description}}</p>
+							
+								<!-- <p>{{$sanpham->description}}</p> -->
+
+								<p>{!!htmlspecialchars_decode($sanpham->description)!!}
+								</p>
+
 							
 						</div>
 
@@ -153,7 +158,7 @@
 						<!-- @endif -->
 
 								
-                            <textarea id="demo" class="form-control ckeditor" name="NoiDung" rows="3"></textarea>
+                            <textarea class="form-control" name="NoiDung" rows="3"></textarea>
                         </div>
 						
                         <button type="submit" class="btn btn-primary">Gửi</button>
@@ -210,7 +215,7 @@
 										</p>
 									</div>
 									<div class="single-item-caption">
-										<a class="add-to-cart pull-left" href="product.html"><i class="fa fa-shopping-cart"></i></a>
+										<a class="add-to-cart pull-left" href="{{route('themgiohang',$sptt->id)}}"><i class="fa fa-shopping-cart"></i></a>
 										<a class="beta-btn primary" href="{{route('chitietsanpham',$sptt->id)}}">Chi tiết <i class="fa fa-chevron-right"></i></a>
 										<div class="clearfix"></div>
 									</div>
@@ -228,7 +233,7 @@
 							<div class="beta-sales beta-lists">
 								@foreach($sp_khuyenmai as $spkm)
 								<div class="media beta-sales-item">
-									<a class="pull-left" href="#"><img src="{{asset('source/home/image/product/'.$spkm->image)}}" alt=""></a>
+									<a class="pull-left" href="{{route('chitietsanpham',$spkm->id)}}"><img src="{{asset('source/home/image/product/'.$spkm->image)}}" alt=""></a>
 									<div class="media-body">
 										<p style="font-size: 25">{{$spkm->name}} </p>
 										<span class="beta-sales-price"> @if(($spkm->promotion_price)==0)
@@ -250,7 +255,7 @@
 							<div class="beta-sales beta-lists">
 								@foreach($new_product as $spm)
 								<div class="media beta-sales-item">
-									<a class="pull-left" href="#"><img src="{{asset('source/home/image/product/'.$spkm->image)}}" alt=""></a>
+									<a class="pull-left" href="{{route('chitietsanpham',$spm->id)}}"><img src="{{asset('source/home/image/product/'.$spkm->image)}}" alt=""></a>
 									<div class="media-body">
 										<p style="font-size: 25">{{$spm->name}}</p>
 										<span class="beta-sales-price">@if(($spkm->promotion_price)==0)

@@ -168,13 +168,13 @@ class UserController extends Controller
 			else
 			{
                 
-				return redirect('admin/login')->with('thongbao','Đăng nhập không thành công');
+				return redirect('admin')->with('thongbao','Đăng nhập không thành công');
 			}
     }
 
     public function getLogout()
     {
     	Auth::logout();
-    	return redirect('admin/')->with('thongbao','Bạn đã đăng xuất thành công!');
+    	return redirect('admin')->with('thongbao','Bạn đã đăng xuất thành công!');
     }
 }

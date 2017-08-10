@@ -13,12 +13,12 @@
       <p>
          Từ ngày : 
          <!-- <label for="date">Date:</label> -->
-         <input type="text" name="tu_ngay" id="tu_ngay" value="{{$tu_ngay}}">
+         <input type="date" name="tu_ngay" id="tu_ngay" value="{{$tu_ngay}}">
       </p>
       <p>
          Đến ngày : 
          <!-- <label for="date2">Date:</label> -->
-         <input type="text" name="den_ngay" id="den_ngay" value="{{$den_ngay}}">
+         <input type="date" name="den_ngay" id="den_ngay" value="{{$den_ngay}}">
       </p>
       <p>
          Theo quý : 

@@ -24,7 +24,7 @@
 					<div class="col-sm-6">
 						<h4>Đặt hàng</h4>
 						<div class="space20">&nbsp;</div>
-						
+						@if(Auth::check())
 						<div class="form-block">
 							<label for="name">Họ tên*</label>
 							<input type="text" id="name" name="name" placeholder="Họ tên" required value="{{Auth::user()->full_name}}">
@@ -32,8 +32,7 @@
 						<div class="form-block">
 							<label>Giới tính </label>
 							<input id="gender" type="radio" class="input-radio" name="gender" value="nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Nam</span>
-							<input id="gender" type="radio" class="input-radio" name="gender" value="nữ" style="width: 10%"><span>Nữ</span>
-										
+							<input id="gender" type="radio" class="input-radio" name="gender" value="nữ" style="width: 10%"><span>Nữ</span>		
 						</div>
 
 						<div class="form-block">
@@ -56,6 +55,42 @@
 							<label for="notes">Ghi chú</label>
 							<textarea id="notes" name="notes"></textarea>
 						</div>
+						@else
+						<div class="form-block">
+							<label for="name">Họ tên*</label>
+							<input type="text" id="name" name="name" placeholder="Họ tên" required value="">
+						</div>
+						<div class="form-block">
+							<label>Giới tính </label>
+							<input id="gender" type="radio" class="input-radio" name="gender" value="nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Nam</span>
+							<input id="gender" type="radio" class="input-radio" name="gender" value="nữ" style="width: 10%"><span>Nữ</span>
+										
+						</div>
+
+						<div class="form-block">
+							<label for="email">Email*</label>
+							<input type="email" id="email" name="email" required placeholder="expample@gmail.com" value="">
+						</div>
+
+						<div class="form-block">
+							<label for="adress">Địa chỉ*</label>
+							<input type="text" id="adress" name="address" placeholder="Street Address" required value="">
+						</div>
+						
+
+						<div class="form-block">
+							<label for="phone">Điện thoại*</label>
+							<input type="text" id="phone" name="phone" required value="">
+						</div>
+						
+						<div class="form-block">
+							<label for="notes">Ghi chú</label>
+							<textarea id="notes" name="notes"></textarea>
+						</div>
+						@endif
+
+
+
 					</div>
 					<div class="col-sm-6">
 						<div class="your-order">
@@ -112,20 +147,18 @@
 									</li>
 										
 										<p>&nbsp;</p>
-									<!-- cái thẻ này sao submit ta, 1 là dùng onlcik rồi submit fỏm của javảipt, 2 là bỏ giữ cái button, cho cái thẻ này làm button luôn hay sao, sao submit được là được,cái này khó vãi, kiểu cho mình lựa chọn 2 phương án, 1 là thanh toán trong website, 2 là thanh toán ngân lượng, có gì đâu, tại mày làm phức tạp thì có, anh thấy dùng javsript lấy input là xong mày biết lấy vaulue mà ko thích làm javasropt thfi thôi, dùng sumit fỏm thì làm cái buntton, check điều kiện thôi, mếu submit ngân lượng xử lý khác, submit thường xử lý khác  mà mày giờ có submit submif form bằng cái button mà ko biết thêm luôn
-									-->
+									
 									
 									<p>Thanh toán với ngân lượng</p>
 									<li class="payment_method_cheque">
 									<button type="submit" name="submit" value="nganluong">
-										<img src="https://www.nganluong.vn/css/newhome/img/button/pay-sm.png"border="0" />
+										<img src="https://www.nganluong.vn/css/newhome/img/button/pay-sm.png" border="0" />
 									</button>
 									</li>
 
 									<p>Thanh toán với bảo kim</p>
 									<li class="payment_method_cheque">
 									<button type="submit" name="submit" value="baokim"><img src="http://www.baokim.vn/developers/uploads/baokim_btn/muahang-m.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn" ></button>
-									
 									</li>
 
 	

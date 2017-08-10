@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label>Nhập mô tả</label>
                                 <textarea id="demo" class="form-control ckeditor" rows="3" name="MoTa" value="" >
-                                    {{$sanpham->description}}
+                                {{$sanpham->description}}  
                                 </textarea>
                             </div>
 

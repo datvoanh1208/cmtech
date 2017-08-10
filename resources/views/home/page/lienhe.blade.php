@@ -27,18 +27,19 @@
 					<div class="space20">&nbsp;</div>
 					
 					<div class="space20">&nbsp;</div>
-					<form action="#" method="post" class="contact-form">	
+					<form action="{{route('contact')}}" method="post" class="contact-form">	
+					<input type="hidden" name="_token" value="{{csrf_token()}}">
 						<div class="form-block">
-							<input name="your-name" type="text" placeholder="Your Name (required)">
+							<input name="name" type="text" placeholder="Your Name (required)">
 						</div>
 						<div class="form-block">
-							<input name="your-email" type="email" placeholder="Your Email (required)">
+							<input name="email" type="email" placeholder="Your Email (required)">
 						</div>
 						<div class="form-block">
-							<input name="your-subject" type="text" placeholder="Subject">
+							<input name="subject" type="text" placeholder="Subject">
 						</div>
 						<div class="form-block">
-							<textarea name="your-message" placeholder="Your Message"></textarea>
+							<textarea name="message" placeholder="Your Message"></textarea>
 						</div>
 						<div class="form-block">
 							<button type="submit" class="beta-btn primary">Send Message <i class="fa fa-chevron-right"></i></button>
@@ -52,9 +53,7 @@
 					<h6 class="contact-title">Địa chỉ</h6>
 					<div class="space20">&nbsp;</div>
 					<p style="font-size: 40">
-						19/20 Nguyễn Tất Thành, Phường 8, TP Cà Mau<br>
-						Ngã 4 Trường CĐ Sư Phạm <br>
-						Cà Mau
+						3, Đường số Khu Dân cư Đông Bắc, Cà Mau,, Số 6, Phường 5, Tp. Cà Mau, Cà Mau
 					</p>
 					
 					<!-- <h6 class="contact-title">Business Enquiries</h6>

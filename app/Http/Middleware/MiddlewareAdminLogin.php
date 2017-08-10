@@ -22,10 +22,10 @@ class MiddlewareAdminLogin
             if($user->level==1)
                 return $next($request);
             else
-                return redirect('admin/');
+                return redirect('admin');
         }
         else 
-            return redirect('admin/');
+            return redirect('admin');
         
     }
 }
